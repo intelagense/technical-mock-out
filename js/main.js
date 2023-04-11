@@ -30,28 +30,33 @@ form.addEventListener("submit", (e) => {
 
 function questionPicker(behavioralQuestions, cstheoryQuestions, remainingQuestions, totalNumberOfQuestions = 10) {
     let randomQuestions = new Set;
+
     if (behavioralQuestions.length > 0) {
         // pick 2-3 behavorial questions
 
         let quantity = (Math.floor(Math.random() * 2) + 1) + 1
         // edge cases for too few questions selected to reach total number of 10
         if (quantity + remainingQuestions.length + cstheoryQuestions.length < 10) { quantity = 10 - remainingQuestions.length - cstheoryQuestions.length }
-        console.log(quantity)
         let questionIndices = numberSet(quantity, behavioralQuestions.length)
         for (let index of questionIndices) {
             randomQuestions.add(behavioralQuestions[index])
         }
     }
     totalNumberOfQuestions = totalNumberOfQuestions - randomQuestions.size - (cstheoryQuestions.length > 0 ? 1 : 0)
+
     let questionIndices = numberSet(totalNumberOfQuestions, remainingQuestions.length)
     for (let index of questionIndices) {
         randomQuestions.add(remainingQuestions[index])
     }
     if (cstheoryQuestions.length > 0) {
-        // pick 1 cs-theory question with a higher probability of lower numbers/"easier" questions
-        randomQuestions.add(cstheoryQuestions[weightedRandom(1, cstheoryQuestions.length)])
+        // picks at least 1 cs-theory question with a higher probability of lower numbers/"easier" questions
+        let questionIndices = weightedSet(10 - randomQuestions.size, cstheoryQuestions.length)
+        for (let index of questionIndices) {
+            randomQuestions.add(cstheoryQuestions[index])
+        }
     }
-    listQuestions(randomQuestions)
+    // problems are now found, call the function display the list
+    console.log(randomQuestions)
 }
 
 function numberSet(desired = 0, max = 0) {
@@ -64,9 +69,42 @@ function numberSet(desired = 0, max = 0) {
     return [...set]
 }
 
-function weightedRandom(min, max) {
-    return Math.round(max / (Math.random() * max + min));
+/// /// /// /// blame devon and freedom
+function weightedSet(desired, max, stdev = 50, mean = 0) {
+    const result = new Set();
+
+    while (result.size < desired) {
+        const u = 1 - Math.random(); // Converting [0,1) to (0,1]
+        const v = Math.random();
+        const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+        const num = Math.floor(z * stdev + mean);
+
+        if (num < 0 || num > max) continue;
+        result.add(Math.floor(z * stdev + mean));
+    }
+
+    return [...result];
 }
+
+function logWeightedSetFrequency(desired, max, X) {
+    const frequency = {};
+
+    for (let i = 0; i < X; i++) {
+        const result = weightedSet(desired, max);
+        result.forEach(num => {
+            frequency[num] = frequency[num] ? frequency[num] + 1 : 1;
+        });
+    }
+
+    const sorted = Object.keys(frequency).sort((a, b) => a - b);
+
+    sorted.forEach(key => {
+        console.log(`${key}: ${frequency[key]}`);
+    });
+}
+
+// logWeightedSetFrequency(10, 100, 100);
+/// /// /// ///
 
 function listQuestions(randomQuestions) {
     for (let each of randomQuestions) {
