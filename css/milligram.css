@@ -632,3 +632,7 @@ img {
   float: right;
 }
 
+/* custom overides */
+ol {
+  list-style: none;
+}

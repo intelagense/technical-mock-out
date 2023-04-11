@@ -56,7 +56,7 @@ function questionPicker(behavioralQuestions, cstheoryQuestions, remainingQuestio
         }
     }
     // problems are now found, call the function display the list
-    console.log(randomQuestions)
+    listQuestions([...randomQuestions])
 }
 
 function numberSet(desired = 0, max = 0) {
@@ -107,7 +107,34 @@ function logWeightedSetFrequency(desired, max, X) {
 /// /// /// ///
 
 function listQuestions(randomQuestions) {
-    for (let each of randomQuestions) {
-        console.log(each)
+    // get reference to the ordered list element
+    let olList = document.getElementById("olList");
+
+    if (olList.hasChildNodes()) {
+        clearList()
+    }
+
+    // loop through the data array and create list items
+    for (let i = 0; i < randomQuestions.length; i++) {
+        const listItem = document.createElement("li");
+        listItem.textContent = randomQuestions[i];
+        olList.appendChild(listItem);
+    }
+
+    const listItems = document.querySelectorAll('#olList li');
+
+    listItems.forEach((item, index) => {
+        const number = document.createElement('span');
+        number.classList.add('number');
+        number.textContent = `${index + 1}. `;
+        item.insertBefore(number, item.firstChild);
+    });
+}
+
+function clearList() {
+    var listElements = document.querySelectorAll("#olList li");
+    let li;
+    for (let i = 0; (li = listElements[i]); i++) {
+        li.parentNode.removeChild(li);
     }
 }
