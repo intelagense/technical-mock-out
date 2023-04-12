@@ -129,6 +129,8 @@ function listQuestions(randomQuestions) {
         number.textContent = `${index + 1}. `;
         item.insertBefore(number, item.firstChild);
     });
+
+    document.querySelector('#my-modal').checked = true;
 }
 
 function clearList() {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="business">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,46 +11,83 @@
       href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
     />
     <!-- CSS Normalize -->
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/milligram.css" />
+    <link href="/dist/output.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="row">
-      <div class="column">
-        <h1 id="title" class="">Technical Mockout</h1>
-        <form id="questionTypes">
-          <label
-            ><input
-              type="checkbox"
-              name="behavioral"
-              checked
-            />Behavoiral</label
-          >
-          <label><input type="checkbox" name="html" checked />HTML</label>
-          <label><input type="checkbox" name="css" checked />CSS</label>
-          <label
-            ><input
-              type="checkbox"
-              name="javascript"
-              checked
-            />JavaScript</label
-          >
-          <label
-            ><input
-              type="checkbox"
-              name="javascript-general"
-              checked
-            />JavaScript-General</label
-          >
-          <label><input type="checkbox" name="node" checked />Node</label>
-          <label
-            ><input type="checkbox" name="cs-theory" checked />CS Theory</label
-          >
-          <button type="submit">Generate interview</button>
-        </form>
-        <ol id="olList"></ol>
+    <section class="container mx-auto prose">
+      <h1 class="flex justify-center pt-5" id="title">Technical Mockout</h1>
+
+      <div class="flex flex-col">
+        <div class="form-control">
+          <form id="questionTypes">
+            <label class="cursor-pointer label"
+              ><span class="label-text">Behavioral</span>
+              <input
+                class="toggle toggle-warning"
+                type="checkbox"
+                name="behavioral"
+                checked
+            /></label>
+            <label class="cursor-pointer label"
+              ><input
+                class="toggle toggle-warning"
+                type="checkbox"
+                name="html"
+                checked
+              /><span>HTML</span></label
+            >
+            <label class="cursor-pointer label"
+              ><span>CSS</span
+              ><input
+                class="toggle toggle-warning"
+                type="checkbox"
+                name="css"
+                checked
+            /></label>
+            <label class="cursor-pointer label"
+              ><input
+                class="toggle toggle-warning"
+                type="checkbox"
+                name="javascript"
+                checked
+              />JavaScript</label
+            >
+            <label class="cursor-pointer label"
+              ><span>JavaScript-General</span
+              ><input
+                class="toggle toggle-warning"
+                type="checkbox"
+                name="javascript-general"
+                checked
+            /></label>
+            <label class="cursor-pointer label"
+              ><input
+                class="toggle toggle-warning"
+                type="checkbox"
+                name="node"
+                checked
+              />Node</label
+            >
+            <label class="cursor-pointer label"
+              ><span>CS Theory</span
+              ><input
+                class="toggle toggle-warning"
+                type="checkbox"
+                name="cs-theory"
+                checked
+            /></label>
+            <div class="flex justify-center">
+              <button type="submit" class="btn btn-accent">
+                Generate interview
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- The button to open modal -->
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -58,5 +95,21 @@
     ></script>
     <script src="js/questions.js" type="module"></script>
     <script src="js/main.js" type="module"></script>
+
+    <input type="checkbox" id="my-modal" class="modal-toggle" />
+    <div class="modal">
+      <div class="modal-box">
+        <h3 class="font-bold text-lg">Your questions</h3>
+        <p class="py-4">
+          (Interviewer note: ask as many of these questions as you want in any
+          order in a 30 minute time frame, then give feedback before moving on
+          to the coding challenge)
+        </p>
+        <ol id="olList"></ol>
+        <div class="modal-action">
+          <label for="my-modal" class="btn">Done</label>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
