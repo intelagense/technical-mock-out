@@ -9,6 +9,6 @@
     "postcss-cli": "^10.1.0"
   },
   "scripts":{
-    "build": "postcss src/css/styles.css -o dist/css/styles.css && cp src/index.html dist/index.html && cp -R src/js dist/"
+    "build": "postcss src/css/styles.css -o dist/css/styles.css && cp src/index.html dist/index.html && cp src/boxing.ico dist/boxing.ico && cp -R src/js dist/"
   }
 }
